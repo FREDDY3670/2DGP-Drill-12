@@ -183,6 +183,10 @@ class Zombie:
         a5 = Action('다음 순찰 위치 획득', self.get_patrol_location)
         patrol = Sequence('순찰', a5, a2)
 
+        c2 = Condition('소년이 공을 더 많이 가졌는가?', self.boy_more_ball)
+        a_run = Action('소년에게서 도망', self.run_from_boy)
+        run_away = Sequence('공이 적으면 도망', c2, a_run)
+
         chase_or_run = Selector('추적 또는 도망', run_away, chase)
         check_boy_if_nearby = Sequence('소년 근처 반응', c1, chase_or_run)
 
