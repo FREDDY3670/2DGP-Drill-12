@@ -162,6 +162,22 @@ class Zombie:
         else:
             return BehaviorTree.FAIL
 
+    def run_from_boy(self):
+        self.state = 'Walk'
+        run_x = self.x + (self.x - common.boy.x)
+        run_y = self.y +  (self.y - common.boy.y)
+        self.move_little_to(run_x, run_y)
+
+        if not self.distance_less_than(self.x, self.y, common.boy.x, common.boy.y, 7):
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.RUNNING
+    def zombie_more_ball(self):
+        if self.ball_count > common.boy.ball_count:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+
 
 
     def build_behavior_tree(self):
@@ -186,6 +202,11 @@ class Zombie:
         c2 = Condition('소년이 공을 더 많이 가졌는가?', self.boy_more_ball)
         a_run = Action('소년에게서 도망', self.run_from_boy)
         run_away = Sequence('공이 적으면 도망', c2, a_run)
+
+
+        c3 = Condition('좀비가 공을 더 많이 가졌는가?', self.zombie_more_ball)
+        a_chase = Action('소년 추적', self.move_to_boy)
+        chase = Sequence('공이 많으면 추적', c3, a_chase)
 
         chase_or_run = Selector('추적 또는 도망', run_away, chase)
         check_boy_if_nearby = Sequence('소년 근처 반응', c1, chase_or_run)
