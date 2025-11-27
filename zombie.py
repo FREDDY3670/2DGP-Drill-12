@@ -156,6 +156,13 @@ class Zombie:
         return BehaviorTree.SUCCESS
         pass
 
+    def boy_more_ball(self):
+        if common.boy.ball_count > self.ball_count:
+            return BehaviorTree.SUCCESS
+        else:
+            return BehaviorTree.FAIL
+
+
 
     def build_behavior_tree(self):
         a1 = Action("목적지 설정",self.set_target_location,800,800)
@@ -176,7 +183,7 @@ class Zombie:
         a5 = Action('다음 순찰 위치 획득', self.get_patrol_location)
         patrol = Sequence('순찰', a5, a2)
 
-        root = Selector('추적 또는 순찰', chase_boy_if_nearby, patrol)
+        root = Selector('체크 또는 순찰', chase_boy_if_nearby, patrol)
 
         self.bt = BehaviorTree(root)
 
