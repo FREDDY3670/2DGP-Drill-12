@@ -215,5 +215,7 @@ class Zombie:
 
         self.bt = BehaviorTree(root)
 
+        #2024180010김민규
+
 
 
