@@ -183,6 +183,7 @@ class Zombie:
         a5 = Action('다음 순찰 위치 획득', self.get_patrol_location)
         patrol = Sequence('순찰', a5, a2)
 
+        chase_or_run = Selector('추적 또는 도망', run_away, chase)
         check_boy_if_nearby = Sequence('소년 근처 반응', c1, chase_or_run)
 
         root = Selector('체크 또는 순찰', check_boy_if_nearby, patrol)
