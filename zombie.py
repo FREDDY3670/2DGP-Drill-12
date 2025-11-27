@@ -211,7 +211,7 @@ class Zombie:
         chase_or_run = Selector('추적 또는 도망', run_away, chase)
         check_boy_if_nearby = Sequence('소년 근처 반응', c1, chase_or_run)
 
-        root = Selector('체크 또는 순찰', check_boy_if_nearby, patrol)
+        root = Selector('체크 또는 배회', check_boy_if_nearby, wander)
 
         self.bt = BehaviorTree(root)
 
